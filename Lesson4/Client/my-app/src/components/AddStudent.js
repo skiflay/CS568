@@ -2,9 +2,7 @@ import React, {Component} from 'react'
 
 class AddStudent extends Component{
     state = this.props.students
-    addStd= ()=>{
-        
-    }
+    
     handleChange = (e)=>{
         let addedStd = [ {name: e.target.value}]
         console.log(addedStd)
@@ -12,7 +10,9 @@ class AddStudent extends Component{
             ...addedStd
         })
     }
-   
+   handleSubmit = (e)=>{
+    // let addStd = []
+   }
 render(){
     
     return (

@@ -18,19 +18,17 @@ class Students extends React.Component{
     }
     deleteById = (id)=>{
         const copyStudents = [...this.state.students]
-        let res= copyStudents.filter(std=> std !==id)
+        let res= copyStudents.filter(std=> id!==std.id)
+        this.setState({students: res})
+    }
+    addStd = (e)=>{
+        const [name, value] = e.target.value
+        // const name = e.target.value
         this.setState({
-           [this.state.students]: res
+           students: [...this.state.students, name]
+
         })
     }
-    // addStd = (e)=>{
-    //     const [name, value] = e.target.value
-    //     // const name = e.target.value
-    //     this.setState({
-    //        students: [...this.state.students, name]
-
-    //     })
-    // }
     render(){
         
       let students = null;
@@ -40,7 +38,8 @@ class Students extends React.Component{
              return (
                  
                     <Student id= {item.id} name= {item.name} 
-                    delete ={<button onClick={(id)=>this.deleteById(id)}>Delete</button>}
+                    delete ={<button onClick={(std)=>this.deleteById(item.id)}>Delete</button>}
+                    
                     >
                     </Student>
                
