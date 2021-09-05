@@ -10,7 +10,8 @@ class App extends Component {
               {id: 2, name:'The Bourne Identity', genre: 'Drama', rate: 13}
             ],
         newMovie: {id:'', name:'', genre: '', rate: ''},
-        favoriateMovies: []
+        favoriateMovies: [],
+        showHideFav: true
   }
   AddFavoriateMovie = (id)=>{
     const movie = this.state.movies.find(item=>{
@@ -41,8 +42,20 @@ class App extends Component {
     e.preventDefault()
       this.setState({movies: this.state.movies.concat(this.state.newMovie)})  
   }
-
+  showHideBtn =()=>{
+   this.setState({showHideFav: !this.state.showHideFav})
+  }
   render(){
+    let favoriate = this.state.favoriateMovies.map(movie=>{ 
+        return (  
+          <FavoriateMovies
+            key= {movie.id} id={movie.id} name={movie.name} genre={movie.genre} rate={movie.rate} 
+            delete = {<button onClick={()=>this.deleteFavoriateMovie(movie.id)}> Delete </button>}
+            >
+          </FavoriateMovies>
+        )
+      })
+    
     return (
       <div> 
         <h1>ID   Name   Genre   Rate </h1>
@@ -67,18 +80,10 @@ class App extends Component {
   
   <hr/>
         <h1>My Favoriate Movies List</h1>
-  { this.state.favoriateMovies.map(movie=>{ 
-      return (  
-        <FavoriateMovies
-          key= {movie.id} id={movie.id} name={movie.name} genre={movie.genre} rate={movie.rate} 
-          delete = {<button onClick={()=>this.deleteFavoriateMovie(movie.id)}> Delete </button>}
-          
-          >
-        </FavoriateMovies>
-      )
-    })
+        <button onClick={this.showHideBtn}>Show/Hide</button>
+  { 
+    this.state.showHideFav ? favoriate : null
   }
-  
         
     </div>
   )
