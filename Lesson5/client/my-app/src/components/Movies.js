@@ -2,9 +2,11 @@ import React from 'react'
 
 function Movies(props){
     return (
-        <div>
-            Hi from Movies ...{props.name}
-        </div>
+        <ul>
+          {<li>{props.name}</li>}
+          {<li>{props.genre}</li>}
+          {<li>{props.rating}</li>}
+        </ul>
     )
 }
 

@@ -1,25 +1,39 @@
 import React from 'react'
 import Movies from './components/Movies'
+import axios from 'axios'
 
 class App extends React.Component {
  constructor(){
-   console.log('Constructor')
    super()
-  this.state = {name:'Simon'}
+  this.state = {movies: []}
  }
 
  componentDidMount(){
-   console.log('component did mount')
-  this.setState({name: 'Kiflay'})
+  axios.get('http://localhost:4000/movies')
+  .then(result=>{
+    let copyMovies = [...this.state.movies]
+    copyMovies = result.data
+    this.setState({movies: copyMovies})
+  })
+ 
  }
 //  shouldComponentUpdate(){
    
 //  }
   render(){
-    console.log('Render')
+    console.log(this.state.movies)
     return (
     <div className="App">
-      <Movies name={this.state.name} />
+      {
+        this.state.movies.map(movie=>{
+          return(
+          <Movies  name={movie.name} genre={movie.genre} rating={movie.rating} >
+
+          </Movies>
+          )
+        })
+      }
+      
     </div>
   );
   }
