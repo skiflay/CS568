@@ -6,6 +6,7 @@ import FunComp from './components/FunComp';
 import Counter from './components/Counter'
 import Students from './components/Students';
 
+
 class App extends React.Component {
   state = {
     fName: 'Simon',
@@ -28,7 +29,7 @@ decrementCounter = ()=>{
       <Counter incrementCounter = {this.incrementCounter} 
       decrementCounter = {this.decrementCounter} 
       count ={this.state.count} />
-      <ClassComp  fName={this.state.fName}> Hello  </ClassComp>   
+      <ClassComp  fName={this.state.fName}> Hello </ClassComp>   
       <FunComp lName={this.state.lName} > Your last name is </FunComp>
       <Students />
     </div>

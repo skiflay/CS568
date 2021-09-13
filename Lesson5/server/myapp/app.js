@@ -2,36 +2,20 @@ var createError = require('http-errors');
 var express = require('express');
 const mongodb = require('mongodb')
 const cors = require('cors')
-
-
-var client = mongodb.MongoClient;
-var url = 'mongodb+srv://simon:test123@cluster0.wkrdr.mongodb.net/myFirstDatabase?';
-
-client.connect(url, function (err, client) {
-    
-    var db = client.db("libraryBook");
-    var collection = db.collection("book");
-    
-    var query = {};
-    
-    var cursor = collection.find(query);
-    
-    cursor.forEach(
-        function(doc) {
-           // console.log(doc);
-        }, 
-        function(err) {
-            client.close();
-        }
-    );   
-});
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const moviesRouter = require('./routes/movies')
 
-var app = express();
+var client = mongodb.MongoClient;
+var url = 'mongodb+srv://simon:test123@cluster0.wkrdr.mongodb.net/moviesDB';
 
+client.connect(url, function (err, db) {
+    if(err) throw err
+    console.log('MongoDB connected!')
+});
+
+
+var app = express();
 
 
 app.use(cors());

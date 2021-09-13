@@ -1,6 +1,8 @@
 import React from 'react'
 import Movies from './components/Movies'
 import axios from 'axios'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 class App extends React.Component {
  constructor(){
@@ -33,7 +35,9 @@ class App extends React.Component {
           )
         })
       }
-      
+      <Signup />
+      <Login />
+
     </div>
   );
   }
