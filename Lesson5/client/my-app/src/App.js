@@ -1,45 +1,35 @@
 import React from 'react'
 import Movies from './components/Movies'
-import axios from 'axios'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import {BrowserRouter, Route} from 'react-router-dom'
+import Home from '../src/components/Home'
+import CreateMovie from './components/CreateMovie'
+
 
 class App extends React.Component {
- constructor(){
-   super()
-  this.state = {movies: []}
- }
-
- componentDidMount(){
-  axios.get('http://localhost:4000/movies')
-  .then(result=>{
-    let copyMovies = [...this.state.movies]
-    copyMovies = result.data
-    this.setState({movies: copyMovies})
-  })
  
- }
+
+ 
 //  shouldComponentUpdate(){
    
 //  }
   render(){
-    console.log(this.state.movies)
     return (
-    <div className="App">
-      {
-        this.state.movies.map(movie=>{
-          return(
-          <Movies  name={movie.name} genre={movie.genre} rating={movie.rating} >
-
-          </Movies>
-          )
-        })
-      }
-      <Signup />
-      <Login />
-
-    </div>
-  );
+    <BrowserRouter >
+      <Navbar />
+      <Route path='/' exact><Home /></Route>
+      <Route path='/movies'><Movies /></Route>
+      <Route path='/create'><CreateMovie /></Route>
+      
+      {/* <Login />
+     <Signup /> */}
+      </BrowserRouter>
+    
+  )
+  
   }
   
 }

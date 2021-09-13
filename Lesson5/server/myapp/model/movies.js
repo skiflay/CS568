@@ -1,7 +1,7 @@
 const mongoose =require('mongoose')
 
 const movieSchema = {
-    name: String,
+    title: String,
     genre: String,
     rating: String
 }
