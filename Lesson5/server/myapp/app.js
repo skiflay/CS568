@@ -11,7 +11,7 @@ app.use(express.json())
 mongoose.connect('mongodb+srv://simon:test123@cluster0.wkrdr.mongodb.net/moviesDB', ()=>{
     console.log('MongoDB Connected')
 })
-app.use('/create', router)
+//app.use('/create', router)
 app.use('/movies', router)
 
 
