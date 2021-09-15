@@ -21,32 +21,31 @@ router.get('/', (req, res) => {
     Movie.find().then(result => res.send(result))
 })
 
-router.delete('/:id', (req, res)=>{
+router.delete('/:id', (req, res) => {
     let id = req.params.id
-   Movie.findByIdAndDelete({_id: id}, (err)=>{
-       if(!err){
-        res.send('deleted')
-       } else {
-           console.log(err)
-       }
-   })   
-})
-
-router.put('/:id', (req, res)=>{
-    console.log(req.body.title)
-    const updatedMovie = {
-      title : req.body.title,
-     genre : req.body.genre,
-    rating : req.body.rating
-    }
-    console.log(updatedMovie)
-    Movie.findByIdAndUpdate({_id: req.params.id}, {$set: updatedMovie}, err=>{
-        if(!err) {
-            res.send('Movie Updated')
-        } else{
+    Movie.findByIdAndDelete({ _id: id }, (err) => {
+        if (!err) {
+            res.send('deleted')
+        } else {
             console.log(err)
         }
-       
+    })
+})
+
+router.put('/:id', (req, res) => {
+    const updatedMovie = {
+        id: req.body.id,
+        title: req.body.title,
+        genre: req.body.genre,
+        rating: req.body.rating
+    }
+    Movie.findByIdAndUpdate({ _id: req.params.id }, { $set: updatedMovie }, err => {
+        if (!err) {
+            res.send('Movie Updated')
+        } else {
+            console.log(err)
+        }
+
     })
 })
 module.exports = router

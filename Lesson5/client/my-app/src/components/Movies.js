@@ -37,14 +37,16 @@ class Movies extends React.Component{
 }
 
 handleSaveUpdate(id){
-  axios.put('/movies/' + id, this.state.updatedMovie)
+  let copyId = this.state.updatedMovie.id
+  console.log(this.state.updatedMovie, '/movies/' + copyId)
+  axios.put('/movies/' + copyId, this.state.updatedMovie)
 }
   render(){
     return (
       <div>
         {!this.state.showUpdateForm ?
         this.state.movies.map(movie=>{
-          return(
+          return(   
          <ul key={movie._id}>  
           {<li>TITLE: {movie.title}</li>}
           {<li>GENRE: {movie.genre}</li>}
@@ -52,6 +54,7 @@ handleSaveUpdate(id){
           <button onClick={()=>this.handleDelete(movie._id)}>Delete</button>
           <button onClick={()=>this.handleUpdate(movie._id)}>Update</button>
         </ul>
+      
           )
           }) :
           
