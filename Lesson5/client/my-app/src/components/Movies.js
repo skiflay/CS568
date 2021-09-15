@@ -4,7 +4,11 @@ import axios from 'axios'
 class Movies extends React.Component{
   constructor(){
     super()
-   this.state = {movies: []}
+   this.state = {
+     movies: [], 
+     showUpdateForm: false,
+     updatedMovie: {id: '', title: '', genre: '', rating: ''}
+    }
   }
   
   componentDidMount(){
@@ -16,35 +20,68 @@ class Movies extends React.Component{
     })  
    }
    handleDelete = id=>{
-     axios.delete('/movies')
-     .then(result=>{
-       let copyMovies = [...this.state.movies]
-       copyMovies = result.data
-       copyMovies.filter(item=>{
-         return id !==item.id
-       })
-       this.setState({movies: copyMovies})
-     })
-     
+     axios.delete('/movies/'+ id)
+     alert('Movie Deleted', id)
    }
+   handleUpdate = (id)=>{
+    this.setState({showUpdateForm: true})
+     let updatedMovie = {...this.state.updatedMovie, id}
+    this.setState({updatedMovie })
+}
+   handleChangeUpdate = (e) => {
+    // const [name, value] = e.target
+    let copy = { ...this.state.updatedMovie }
+    console.log(copy[e.target.name] = e.target.value)
+    this.setState({updatedMovie: copy})
+    
+}
+
+handleSaveUpdate(id){
+  axios.put('/movies/' + id, this.state.updatedMovie)
+}
   render(){
     return (
       <div>
-      {
+        {!this.state.showUpdateForm ?
         this.state.movies.map(movie=>{
           return(
          <ul key={movie._id}>  
-          {<li>{movie.name}</li>}
-          {<li>{movie.genre}</li>}
-          {<li>{movie.rating}</li>}
-          <button onClick={()=>this.handleDelete(movie.id)}>Delete</button>
-          <button onClick={this.handleUpdate}>Update</button>
+          {<li>TITLE: {movie.title}</li>}
+          {<li>GENRE: {movie.genre}</li>}
+          {<li>RATING: {movie.rating}</li>}
+          <button onClick={()=>this.handleDelete(movie._id)}>Delete</button>
+          <button onClick={()=>this.handleUpdate(movie._id)}>Update</button>
         </ul>
-          )})
-        
-          }
-        </div>
+          )
+          }) :
+          
+          (<div className='container'>                   
+                    
+                <h1> Update Movie </h1>
+                {/* <form> */}
+                    <div className='form-group'>
+                        <input className='form-control' type='text' name='title' 
+                        value={this.state.updatedMovie.title}
+                        placeholder='Movie Title' onChange={this.handleChangeUpdate} />
+                    </div>
+                    <div className='form-group'>
+                        <input className='form-control' type='text' name='genre' 
+                        value={this.state.updatedMovie.genre}
+                        placeholder='Genre' onChange={this.handleChangeUpdate} />
+                    </div>
+                    <div className='form-group'>
+                        <input className='form-control' type='text' name='rating' 
+                        value={this.state.updatedMovie.rating}
+                        placeholder='Rating' onChange={this.handleChangeUpdate} />
+                    </div>
+                    <button className='btn btn-lg btn-info'
+                    onClick={()=>this.handleSaveUpdate(this.state.updatedMovie._id)}>Save</button>
+                {/* </form> */}
+                </div>)
+              }
+                </div> 
     )
+    
 } 
 }
 

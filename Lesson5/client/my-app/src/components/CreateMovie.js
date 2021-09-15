@@ -2,7 +2,11 @@ import React from 'react'
 import axios from 'axios'
 
 class CreateMovie extends React.Component {
-    state = { newMovie: { title: '', genre: '', rating: '' } }
+    state = { 
+        newMovie: { title: '', genre: '', rating: '' },
+        showUpdateForm: false,
+        UpdatedMovie: {title: '', genre: '', rating: ''}
+    }
 
     handleChange = e => {
         let copy = { ...this.state.newMovie }
@@ -12,13 +16,14 @@ class CreateMovie extends React.Component {
     handleClick = (e)=>{
         e.preventDefault()
         let newMovie = {...this.state.newMovie}
-        console.log(newMovie)
        axios.post('/movies', newMovie)
     }
+   
     render() {
         return (
+           
             <div className='container'>
-                <h1> CreateMovie </h1>
+                <h1> Create Movie </h1>
                 <form onSubmit={this.handleClick}>
                     <div className='form-group'>
                         <input className='form-control' type='text' name='title' value={this.state.newMovie.title}
@@ -33,8 +38,10 @@ class CreateMovie extends React.Component {
                             placeholder='Rating' onChange={this.handleChange} />
                     </div>
                     <button className='btn btn-lg btn-info'>Add</button>
-                </form>
+                </form>   
+                
             </div>
+           
         )
     }
 

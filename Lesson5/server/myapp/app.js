@@ -13,7 +13,7 @@ mongoose.connect('mongodb+srv://simon:test123@cluster0.wkrdr.mongodb.net/moviesD
 })
 //app.use('/create', router)
 app.use('/movies', router)
-
+//app.use('/movies:id', router)
 
 app.listen(4000, ()=> console.log('Server is running on post 4000'))
 
